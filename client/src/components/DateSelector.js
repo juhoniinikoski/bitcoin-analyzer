@@ -1,27 +1,55 @@
 import React from 'react'
-import { FaAngleDown } from 'react-icons/fa'
+import { FaRegCalendarAlt } from 'react-icons/fa'
+import { colors } from '../styles/colors'
+import { validate } from '../services/dateService'
 
-const DateSelector= () => (
-  <div className='selector-container'>
-    <div className='selector-item' style={{flex: 6, marginRight: 10}}>
-      <div className='selector-content'>
-        <p>01</p>
-        <FaAngleDown style={{marginTop: 2}}/>
+const DateSelector= ({ date, setDate, validated, setValidated }) => {
+
+  const [prevLength, setPrevLength] = React.useState(0)
+
+  const format = (raw) => {
+    var formatted = raw
+    if (raw.length >= prevLength) {
+      if (prevLength === 1 || prevLength === 6) {
+        formatted = raw + " / "
+      }
+    } else {
+      if (prevLength === 5 || prevLength === 10) {
+        formatted = raw.substring(0, raw.length - 3)
+      }
+    }
+    setPrevLength(formatted.length)
+    const parts = formatted.split("/").map(p => p.trim())
+    if (formatted.length === 14) {
+      formatted = validate(parts, setValidated)
+    } else if (validated === true) {
+      setValidated(false)
+    }
+    return formatted
+  }
+
+  const handleChange = (e) => {
+    const value = e.target.value
+    const formatted = format(value)
+    setDate(formatted)
+  }
+
+  return (
+    <div className='selector-container'>
+      <div className='date-container'>
+        <input
+          type="text"
+          maxLength={14}
+          value={date}
+          placeholder="DD / MM / YYYY"
+          onChange={handleChange}
+          style={{width: 150}}
+        >
+        </input>
       </div>
+      <FaRegCalendarAlt size={20} color={colors.disabled} style={{marginRight: 8}}/>
     </div>
-    <div className='selector-item' style={{flex: 10, marginRight: 10, marginLeft: 10}}>
-      <div className='selector-content'>
-        <p>September</p>
-        <FaAngleDown style={{marginTop: 2}}/>
-      </div>
-    </div>
-    <div className='selector-item' style={{flex: 7, marginLeft: 10}}>
-      <div className='selector-content'>
-        <p>2021</p>
-        <FaAngleDown style={{marginTop: 2}}/>
-      </div>
-    </div>
-  </div>
-)
+  )
+}
 
 export default DateSelector
