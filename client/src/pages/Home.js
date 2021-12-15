@@ -1,7 +1,15 @@
 import React from 'react'
 import DateSelector from '../components/DateSelector'
+import Layout from '../utils/layout'
+import { textContent } from '../content/textContent'
+import { MdDone, MdNotInterested } from 'react-icons/md'
+import { colors } from '../styles/colors'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const Home = () => {
+
+  const params = useParams()
+  const language = params.language
 
   const [startDate, setStartDate] = React.useState("")
   const [endDate, setEndDate] = React.useState("")
@@ -9,6 +17,9 @@ const Home = () => {
   const [endValidated, setEndValidated] = React.useState(false)
 
   const [valid, setValid] = React.useState(false)
+  const navigate = useNavigate()
+
+  const content = language === 'en' ? textContent.en : textContent.fi
 
   React.useEffect(() => {
     if (startValidated && endValidated) {
@@ -31,16 +42,44 @@ const Home = () => {
   }, [valid, startValidated, endValidated])
 
 
+  const handleSubmit = () => {
+
+    const parsedStart = startDate.split("/")
+      .map(value => value.trim())
+      .map(value => parseInt(value))
+    
+    const parsedEnd = endDate.split("/")
+      .map(value => value.trim())
+      .map(value => parseInt(value))
+    
+    const start = { day: parsedStart[0], month: parsedStart[1], year: parsedStart[2] }
+    const end = { day: parsedEnd[0], month: parsedEnd[1], year: parsedEnd[2] }
+
+    console.log(language)
+
+    navigate(`/${language}/statistics`, {
+      state: {start: start, end: end}
+    })
+  }
+
+
   return (
-    <div>
-      <h1>Hi there! 👋</h1>
-      <h2>Check out the <b>Bitcoin</b> statistics to analyze its marketvalue within a given date range.</h2>
-      <h2>Start by defining a range you want to inspect from below.</h2>
-      <p className='helper-text'>Select the beginning date of the range</p>
-      <DateSelector date={startDate} setDate={setStartDate} validated={startValidated} setValidated={setStartValidated}/>
-      <p className='helper-text'>Select the ending date of the range</p>
-      <DateSelector date={endDate} setDate={setEndDate} validated={endValidated} setValidated={setEndValidated}/>
-    </div>
+    <Layout language={language}>
+      <div>
+        <h1>{content.greeting}</h1>
+        <h2>{content.subtitle1_1}<b>Bitcoin</b>{content.subtitle1_2}</h2>
+        <h2>{content.subtitle2}</h2>
+        <p className='helper-text'>{content.input1}</p>
+        <DateSelector date={startDate} setDate={setStartDate} validated={startValidated} setValidated={setStartValidated} placeholder={content.placeholder}/>
+        <p className='helper-text'>{content.input2}</p>
+        <DateSelector date={endDate} setDate={setEndDate} validated={endValidated} setValidated={setEndValidated} placeholder={content.placeholder}/>
+        <button className='submit-button' type={"submit"} disabled={!valid} onClick={handleSubmit}>
+          {valid ? <MdDone size={22} color={colors.primaryDark}/> :
+          <MdNotInterested size={22} color={colors.disabled}/>}
+          <p style={{color: valid ? colors.primaryDark : colors.disabled}}>{content.submit}</p>
+        </button>
+      </div>
+    </Layout>
   )
 }
 

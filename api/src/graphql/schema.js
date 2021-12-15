@@ -38,24 +38,28 @@ export const typeDefs = gql`
     profitRange: ProfitRange!
   }
 
+  input Payload {
+    day: Int!
+    month: Int!
+    year: Int!
+  }
+
   type Query {
-    statistics: Bitcoin
+    statistics(
+      start: Payload!
+      end: Payload!
+    ): Bitcoin
   }
 `
-const year = '2021'
-const month = '5'
-const day = '21'
-
-const year2 = '2021'
-const month2 = '5'
-const day2 = '28'
+const argsStart = { day: 1, month: 12, year: 2019 }
+const argsEnd = { day: 13, month: 12, year: 2019 }
 
 export const resolvers = {
   Query: {
-    statistics: async () => {
+    statistics: async (obj, args) => {
 
-      const start = startDate(year, month, day)
-      const end = endDate(year2, month2, day2)
+      const start = startDate(args.start.year, args.start.month, args.start.day)
+      const end = endDate(args.end.year, args.end.month, args.end.day)
 
       try {
         const response = await fetch(`${BASE_URL}${start}&to=${end}`)

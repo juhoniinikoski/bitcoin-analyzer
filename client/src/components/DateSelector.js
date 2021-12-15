@@ -3,7 +3,7 @@ import { FaRegCalendarAlt } from 'react-icons/fa'
 import { colors } from '../styles/colors'
 import { validate } from '../services/dateService'
 
-const DateSelector= ({ date, setDate, validated, setValidated }) => {
+const DateSelector= ({ date, setDate, validated, setValidated, placeholder }) => {
 
   const [prevLength, setPrevLength] = React.useState(0)
 
@@ -20,7 +20,7 @@ const DateSelector= ({ date, setDate, validated, setValidated }) => {
     }
     setPrevLength(formatted.length)
     const parts = formatted.split("/").map(p => p.trim())
-    if (formatted.length === 14) {
+    if (parts.length === 3 && parts[2].length === 4 && parts[0].length === 2 && parts[1].length === 2) {
       formatted = validate(parts, setValidated)
     } else if (validated === true) {
       setValidated(false)
@@ -41,7 +41,7 @@ const DateSelector= ({ date, setDate, validated, setValidated }) => {
           type="text"
           maxLength={14}
           value={date}
-          placeholder="DD / MM / YYYY"
+          placeholder={placeholder}
           onChange={handleChange}
           style={{width: 150}}
         >
