@@ -1,6 +1,6 @@
 import React from 'react'
 import DateSelector from '../components/DateSelector'
-import Layout from '../utils/layout'
+import Layout from '../components/layout'
 import { textContent } from '../content/textContent'
 import { MdDone, MdNotInterested } from 'react-icons/md'
 import { colors } from '../styles/colors'
@@ -55,8 +55,6 @@ const Home = () => {
     const start = { day: parsedStart[0], month: parsedStart[1], year: parsedStart[2] }
     const end = { day: parsedEnd[0], month: parsedEnd[1], year: parsedEnd[2] }
 
-    console.log(language)
-
     navigate(`/${language}/statistics`, {
       state: {start: start, end: end}
     })
@@ -69,15 +67,17 @@ const Home = () => {
         <h1>{content.greeting}</h1>
         <h2>{content.subtitle1_1}<b>Bitcoin</b>{content.subtitle1_2}</h2>
         <h2>{content.subtitle2}</h2>
-        <p className='helper-text'>{content.input1}</p>
-        <DateSelector date={startDate} setDate={setStartDate} validated={startValidated} setValidated={setStartValidated} placeholder={content.placeholder}/>
-        <p className='helper-text'>{content.input2}</p>
-        <DateSelector date={endDate} setDate={setEndDate} validated={endValidated} setValidated={setEndValidated} placeholder={content.placeholder}/>
-        <button className='submit-button' type={"submit"} disabled={!valid} onClick={handleSubmit}>
-          {valid ? <MdDone size={22} color={colors.primaryDark}/> :
-          <MdNotInterested size={22} color={colors.disabled}/>}
-          <p style={{color: valid ? colors.primaryDark : colors.disabled}}>{content.submit}</p>
-        </button>
+        <form onSubmit={handleSubmit}>
+          <p className='helper-text'>{content.input1}</p>
+          <DateSelector date={startDate} setDate={setStartDate} validated={startValidated} setValidated={setStartValidated} placeholder={content.placeholder}/>
+          <p className='helper-text'>{content.input2}</p>
+          <DateSelector date={endDate} setDate={setEndDate} validated={endValidated} setValidated={setEndValidated} placeholder={content.placeholder}/>
+          <button className='submit-button' type={"submit"} disabled={!valid} type="submit">
+            {valid ? <MdDone size={22} color={colors.primaryDark}/> :
+            <MdNotInterested size={22} color={colors.disabled}/>}
+            <p style={{color: valid ? colors.primaryDark : colors.disabled}}>{content.submit}</p>
+          </button>
+        </form>
       </div>
     </Layout>
   )

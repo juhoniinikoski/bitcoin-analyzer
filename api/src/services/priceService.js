@@ -62,5 +62,6 @@ export const mostProfitableRange = (prices) => {
   const index = differences.indexOf(Math.max(...differences))
   const rangeStart = prices[min[index].id]
   const rangeEnd = prices[max[index].id]
-  return { rangeStart, rangeEnd, difference: differences[index] }
+  const profit = differences[index] / rangeStart[1] * 100
+  return { rangeStart, rangeEnd, profit }
 }

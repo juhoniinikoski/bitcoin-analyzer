@@ -36,7 +36,8 @@ h3 {
   font-size: 24px;
   font-weight: bold;
   margin: 0;
-  margin-bottom: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 p {
@@ -59,7 +60,7 @@ p {
   display: flex;
   width: 60%;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .helper-text {
@@ -180,10 +181,36 @@ p {
 }
 
 .back-button {
+  margin-top: 10px;
   display: flex;
   align-items: center;
 }
 
 .back-button:hover {
   cursor: pointer;
+}
+
+.data-container {
+  height: 140px;
+  flex: 1;
+  display: flex;
+  margin-bottom: 48px;
+  border-radius: 20px;
+  flex-direction: column;
+  background-color: white;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.07), 
+              0 2px 4px rgba(0,0,0,0.07), 
+              0 4px 8px rgba(0,0,0,0.07), 
+              0 8px 16px rgba(0,0,0,0.07),
+              0 16px 32px rgba(0,0,0,0.07), 
+              0 32px 64px rgba(0,0,0,0.07);
+}
+
+.data-container:hover {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.07),
+              0 16px 32px rgba(0,0,0,0.07), 
+              0 32px 64px rgba(0,0,0,0.07);
 }

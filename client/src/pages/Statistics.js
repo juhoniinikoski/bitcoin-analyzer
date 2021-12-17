@@ -2,8 +2,10 @@ import React from "react"
 import { useQuery } from '@apollo/client'
 import { GET_STATS } from '../utils/quories'
 import { useLocation, useParams } from 'react-router-dom'
-import Layout from "../utils/layout"
+import Layout from "../components/layout"
 import { textContent } from "../content/textContent"
+import { LineChart } from 'react-chartkick'
+import 'chartkick/chart.js'
 
 const Statistics = () => {
 
@@ -37,6 +39,17 @@ const Stats = ({ state, language }) => {
   const stats = data?.statistics
   const content = language === 'en' ? textContent.en : textContent.fi
 
+  // removes T from timestamp and instead of separating numbers with "-", separates them with "/"
+  const formatDate = (date) => date.split("T")[0].split("-").reverse().join("/")
+
+  // adds commas and rounds to 2 decimal for more clear representation of large numbers
+  const formatFloat = (price) => price.toLocaleString("en", { maximumFractionDigits: 2 })
+
+  const formatPrices = (prices) => Object.fromEntries(
+    // removes time from timestamp and creates map for chart data
+    prices.map(p => [p.date.substring(0, p.date.length - 14), p.price])
+  )
+
   if (loading) {
     return (
       <div>Loading</div>
@@ -45,25 +58,37 @@ const Stats = ({ state, language }) => {
 
   return (
     <div>
-      <h1>Päivämäärät tähän</h1>
+      <h1 style={{marginBottom: 48}}>{formatDate(stats.start)} - {formatDate(stats.end)}</h1>
+      <LineChart data={formatPrices(stats.prices)} points={false} suffix=" €" thousands="," round={2}/>
       <div style={{display: 'flex', marginTop: 48}}>
-        <div style={{flex: 2}}>
-          <h3>{content.bearish}</h3>
-            <li>{stats.decline.longest} {content.days}</li>
-            <li style={{marginBottom: 36}}>{content.from} {stats.decline.start.split("T")[0]} {content.to} {stats.decline.end.split("T")[0]}</li>
-          <h3>{content.volume}</h3>
-            <li>{stats.highestVolume.volume} €</li>
-            <li style={{marginBottom: 36}}>{content.in} {stats.highestVolume.date.split("T")[0]}</li>
-          <h3>{content.profit}</h3>
-            <p style={{marginBottom: 16}}>{content.profitTip}</p>
-            <li>{content.buy} {stats.profitRange.rangeStart[0].split("T")[0]}</li>
-            <li>{content.sell} {stats.profitRange.rangeEnd[0].split("T")[0]}</li>
-            <p style={{marginTop: 16}}>{content.revenue} {stats.profitRange.difference} €</p>
+        <div className="data-container" style={{marginRight: 8}}>
+          <p>{content.volume}</p>
+          <h3>{formatFloat(stats.highestVolume.volume)} €</h3>
+          <p>{content.in} {formatDate(stats.highestVolume.date)}</p>
         </div>
-        <div style={{backgroundColor: 'blue', flex: 3}}>
-          Hei
+        <div className="data-container" style={{marginLeft: 8}}>
+          <p>{content.bearish}</p>
+          <h3>{stats.decline.longest} {content.days}</h3>
+          <p>{formatDate(stats.decline.start)} - {formatDate(stats.decline.end)}</p>
         </div>
       </div>
+      {stats.profitRange.profit === 0 ?
+          <p>{content.negative}</p>
+          : 
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+            <p>{content.profitTip1} <b>{formatFloat(stats.profitRange.profit)} %</b> {content.profitTip2}</p>
+            <div style={{display: 'flex', marginTop: 48, width: '100%'}}>
+              <div className="data-container" style={{marginRight: 8, height: 115}}>
+                <p>{content.buy}</p>
+                <h3>{formatDate(stats.profitRange.rangeStart[0])}</h3>
+              </div>
+              <div className="data-container" style={{marginLeft: 8, height: 115}}>
+                <p>{content.sell}</p>
+                <h3>{formatDate(stats.profitRange.rangeEnd[0])}</h3>
+              </div>
+            </div>
+          </div>
+        }
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server'
 import fetch from 'node-fetch'
 import { BASE_URL } from '../utils/config.js'
-import { endDate, filterTimeStamps, startDate } from '../services/dateService.js'
+import { endDate, filterTimeStamps, startDate, unixToDate } from '../services/dateService.js'
 import { highestVolume, longestDecline, mostProfitableRange, pricesToObject } from '../services/priceService.js'
 import { dateResolver } from './dateTime.js'
 
@@ -28,10 +28,12 @@ export const typeDefs = gql`
   type ProfitRange {
     rangeStart: DateTime!
     rangeEnd: DateTime!
-    difference: Float!
+    profit: Float!
   }
 
   type Bitcoin {
+    start: DateTime!
+    end: DateTime!
     decline: Decline!
     prices: [Price]
     highestVolume: HighestVolume!
@@ -67,12 +69,14 @@ export const resolvers = {
         const { longest, start: declineStart, end: declineEnd } = longestDecline(filterTimeStamps(data.prices))
         const prices = pricesToObject(filterTimeStamps(data.prices))
         const volume = highestVolume(filterTimeStamps(data.total_volumes))
-        const { rangeStart, rangeEnd, difference } = mostProfitableRange(filterTimeStamps(data.prices))
+        const { rangeStart, rangeEnd, profit } = mostProfitableRange(filterTimeStamps(data.prices))
         return {
+          start: unixToDate(start * 1000),
+          end: unixToDate(end * 1000),
           decline: { longest, start: declineStart, end: declineEnd },
           prices: prices,
           highestVolume: volume,
-          profitRange: { rangeStart, rangeEnd, difference }
+          profitRange: { rangeStart, rangeEnd, profit }
         }
       } catch {
         console.log("couldn't get data")

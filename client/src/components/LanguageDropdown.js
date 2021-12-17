@@ -1,6 +1,6 @@
 import React from "react"
 import { IoMdArrowDropdown, IoMdCheckmark } from 'react-icons/io'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 const LanguageDropdown = ({ language }) => {
 
@@ -10,6 +10,7 @@ const LanguageDropdown = ({ language }) => {
   ]
 
   const navigate = useNavigate()
+  const { language: lang } = useParams()
   const [selecting, setSelecting] = React.useState(false)
 
   const handleClick = () => {
@@ -18,7 +19,9 @@ const LanguageDropdown = ({ language }) => {
 
   const handleSelect = (e, language) => {
     setSelecting(false)
-    navigate(`/${language}`)
+    if (language !== lang) {
+      navigate(`/${language}`)
+    }
   }
 
   return (

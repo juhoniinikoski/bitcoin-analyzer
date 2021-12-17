@@ -47,7 +47,7 @@ const DateSelector= ({ date, setDate, validated, setValidated, placeholder }) =>
         >
         </input>
       </div>
-      <FaRegCalendarAlt size={20} color={colors.disabled} style={{marginRight: 8}}/>
+      <FaRegCalendarAlt size={20} color={colors.disabled} style={{marginRight: 8, cursor: "not-allowed"}}/>
     </div>
   )
 }

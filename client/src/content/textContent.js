@@ -13,13 +13,13 @@ export const textContent = {
     volume: "Highest trading volume",
     profit: "Most profitable range",
     from: "from",
-    to: "to",
     days: "days",
     in: "in",
-    profitTip: "In order to achieve the greatest possible revenue within date range, you should have:",
-    buy: "bought in",
-    sell: "sell in",
-    revenue: "Then the revenue would have been"
+    profitTip1: "In order to achieve the greatest possible revenue of ",
+    profitTip2: " within given date range, you should have:",
+    buy: "Bought",
+    sell: "Sold",
+    negative: "You shouldn't have bought Bitcoin during this date range as the profit would have been negative in any case."
   },
   fi: {
     greeting: "Heippa! 👋",
@@ -35,12 +35,12 @@ export const textContent = {
     volume: "Korkein kauppojen määrä",
     profit: "Tuottoisin aikaväli",
     from: "alkaen",
-    to: "päättyen",
     days: "päivää",
     in: "päivämääränä",
-    profitTip: "Parhaan mahdollisen tuoton saamiseksi annetulla aikavälillä, sinun olisi tullut:",
-    buy: "ostaa",
-    sell: "myydä",
-    revenue: "Tällöin tuotto olisi ollut"
+    profitTip1: "Parhaan mahdollisen ",
+    profitTip2: " tuoton saamiseksi annetulla aikavälillä, sinun olisi tullut:",
+    buy: "Ostaa",
+    sell: "Myydä",
+    negative: "Sinun ei olisi kannattanut ostaa Bitcoinia tällä aikavälillä, sillä tuotto olisi ollut joka tapauksessa negatiivista."
   }
 }

@@ -9,6 +9,12 @@ export const GET_STATS = gql`
       start: $start
       end: $end
     ) {
+      start
+      end
+      prices {
+        date
+        price
+      }
       decline {
         longest
         start
@@ -19,7 +25,7 @@ export const GET_STATS = gql`
         volume
       }
       profitRange {
-        difference
+        profit
         rangeStart
         rangeEnd
       }
