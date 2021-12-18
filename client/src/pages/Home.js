@@ -72,7 +72,7 @@ const Home = () => {
           <DateSelector date={startDate} setDate={setStartDate} validated={startValidated} setValidated={setStartValidated} placeholder={content.placeholder}/>
           <p className='helper-text'>{content.input2}</p>
           <DateSelector date={endDate} setDate={setEndDate} validated={endValidated} setValidated={setEndValidated} placeholder={content.placeholder}/>
-          <button className='submit-button' type={"submit"} disabled={!valid} type="submit">
+          <button className='submit-button' disabled={!valid} type="submit">
             {valid ? <MdDone size={22} color={colors.primaryDark}/> :
             <MdNotInterested size={22} color={colors.disabled}/>}
             <p style={{color: valid ? colors.primaryDark : colors.disabled}}>{content.submit}</p>

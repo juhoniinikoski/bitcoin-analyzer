@@ -19,7 +19,8 @@ export const textContent = {
     profitTip2: " within given date range, you should have:",
     buy: "Bought",
     sell: "Sold",
-    negative: "You shouldn't have bought Bitcoin during this date range as the profit would have been negative in any case."
+    negative: "You shouldn't have bought Bitcoin during this date range as the profit would have been negative in any case.",
+    noContent: "No specified dates to inspect. Please return back to home page to select the date range you want to look closer."
   },
   fi: {
     greeting: "Heippa! 👋",
@@ -41,6 +42,7 @@ export const textContent = {
     profitTip2: " tuoton saamiseksi annetulla aikavälillä, sinun olisi tullut:",
     buy: "Ostaa",
     sell: "Myydä",
-    negative: "Sinun ei olisi kannattanut ostaa Bitcoinia tällä aikavälillä, sillä tuotto olisi ollut joka tapauksessa negatiivista."
+    negative: "Sinun ei olisi kannattanut ostaa Bitcoinia tällä aikavälillä, sillä tuotto olisi ollut joka tapauksessa negatiivista.",
+    noContent: "Tarkasteltavia päiviä ei ole määritelty. Ole hyvä ja palaa takaisin etusivulle valitsemaan aikaväli, jota halua tutkailla."
   }
 }

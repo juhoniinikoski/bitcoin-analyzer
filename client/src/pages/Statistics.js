@@ -3,14 +3,17 @@ import { useQuery } from '@apollo/client'
 import { GET_STATS } from '../utils/quories'
 import { useLocation, useParams } from 'react-router-dom'
 import Layout from "../components/layout"
+import { colors}  from '../styles/colors'
 import { textContent } from "../content/textContent"
 import { LineChart } from 'react-chartkick'
+import ClipLoader from "react-spinners/ClipLoader";
 import 'chartkick/chart.js'
 
 const Statistics = () => {
 
   const location = useLocation()
   const { language } = useParams()
+  const content = language === 'en' ? textContent.en : textContent.fi
 
   return (
     <Layout language={language}>
@@ -20,7 +23,7 @@ const Statistics = () => {
         </div>
         :
         <div>
-          Ei oo state
+          {content.noContent}
         </div>}
       </div>
     </Layout>
@@ -52,37 +55,40 @@ const Stats = ({ state, language }) => {
 
   if (loading) {
     return (
-      <div>Loading</div>
+      <div className="loader-container">
+        <ClipLoader />
+      </div>
     )
   }
 
   return (
     <div>
-      <h1 style={{marginBottom: 48}}>{formatDate(stats.start)} - {formatDate(stats.end)}</h1>
+      <h1>{formatDate(stats.start)} - {formatDate(stats.end)}</h1>
+      <p style={{fontWeight: 'bold', color: colors.disabled, marginBottom: 48}}>Bitcoin</p>
       <LineChart data={formatPrices(stats.prices)} points={false} suffix=" €" thousands="," round={2}/>
-      <div style={{display: 'flex', marginTop: 48}}>
-        <div className="data-container" style={{marginRight: 8}}>
+      <div className="stat-container">
+        <div className="data-container-left" >
           <p>{content.volume}</p>
           <h3>{formatFloat(stats.highestVolume.volume)} €</h3>
           <p>{content.in} {formatDate(stats.highestVolume.date)}</p>
         </div>
-        <div className="data-container" style={{marginLeft: 8}}>
+        <div className="data-container-right" >
           <p>{content.bearish}</p>
           <h3>{stats.decline.longest} {content.days}</h3>
           <p>{formatDate(stats.decline.start)} - {formatDate(stats.decline.end)}</p>
         </div>
       </div>
       {stats.profitRange.profit === 0 ?
-          <p>{content.negative}</p>
+          <p style={{marginBottom: 48}}>{content.negative}</p>
           : 
           <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
             <p>{content.profitTip1} <b>{formatFloat(stats.profitRange.profit)} %</b> {content.profitTip2}</p>
-            <div style={{display: 'flex', marginTop: 48, width: '100%'}}>
-              <div className="data-container" style={{marginRight: 8, height: 115}}>
+            <div className="stat-container" style={{width: '100%'}}>
+              <div className="data-container-left" style={{height: 115}}>
                 <p>{content.buy}</p>
                 <h3>{formatDate(stats.profitRange.rangeStart[0])}</h3>
               </div>
-              <div className="data-container" style={{marginLeft: 8, height: 115}}>
+              <div className="data-container-right" style={{height: 115}}>
                 <p>{content.sell}</p>
                 <h3>{formatDate(stats.profitRange.rangeEnd[0])}</h3>
               </div>

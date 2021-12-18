@@ -5,7 +5,8 @@ import {
   BrowserRouter as Router,
   Routes as Switch,
   Route,
-  Navigate
+  Navigate,
+  useParams
 } from "react-router-dom"
 
 const App = () => {
@@ -13,12 +14,21 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/:language/statistics/" element={<Statistics />}/>
-        <Route path="/:language" element={<Home />} />
+        <Route path="/:language/statistics/" element={<Validator component={<Statistics />} />}/>
+        <Route path="/:language" element={<Validator component={<Home />}/>} />
         <Route path="/" element={<Navigate replace to="/en" />} />
       </Switch>
     </Router>
   )
+}
+
+const Validator = ({ component }) => {
+  const params = useParams()
+  if (params.language === 'en' || params.language === 'fi') {
+    return <>{component}</>
+  } else {
+    return <Navigate replace to="/en" />
+  }
 }
 
 export default App
