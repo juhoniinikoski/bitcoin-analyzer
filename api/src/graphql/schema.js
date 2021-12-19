@@ -66,10 +66,11 @@ export const resolvers = {
       try {
         const response = await fetch(`${BASE_URL}${start}&to=${end}`)
         const data = await response.json()
-        const { longest, start: declineStart, end: declineEnd } = longestDecline(filterTimeStamps(data.prices))
-        const prices = pricesToObject(filterTimeStamps(data.prices))
+        const filteredPrices = filterTimeStamps(data.prices)
+        const { longest, start: declineStart, end: declineEnd } = longestDecline(filteredPrices)
+        const prices = pricesToObject(filteredPrices)
         const volume = highestVolume(filterTimeStamps(data.total_volumes))
-        const { rangeStart, rangeEnd, profit } = mostProfitableRange(filterTimeStamps(data.prices))
+        const { rangeStart, rangeEnd, profit } = mostProfitableRange(filteredPrices)
         return {
           start: unixToDate(start * 1000),
           end: unixToDate(end * 1000),
