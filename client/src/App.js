@@ -12,7 +12,7 @@ import {
 const App = () => {
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route path="/:language/statistics/" element={<Validator component={<Statistics />} />}/>
         <Route path="/:language" element={<Validator component={<Home />}/>} />

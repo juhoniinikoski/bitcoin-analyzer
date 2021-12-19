@@ -33,7 +33,7 @@ export const textContent = {
     placeholder: "PV / KK / VVVV",
     back: "Takaisin",
     bearish: "Pisin laskeva trendi",
-    volume: "Korkein kauppojen määrä",
+    volume: "Korkein kauppojen volyymi",
     profit: "Tuottoisin aikaväli",
     from: "alkaen",
     days: "päivää",
