@@ -53,7 +53,7 @@ Node (versions `17.X.X` are tested, but earlier versions _should_ work as well) 
 
 #### Client
 
-1. Run `npm install` in the `client` directory.
+1. Clone this repository (if you haven't already) and run `npm install` in the `client` directory.
 
 2. Run `npm start` to start the app. After the app has started you should be able to access it at http://localhost:3000/.
 
