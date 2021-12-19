@@ -25,10 +25,6 @@ export const validate = (date, setValidated) => {
   const currentDay = today.getDate()
   const currentMonth = today.getMonth() + 1
 
-  const yesterdayYear = yesterday.getFullYear()
-  const yesterdayDay = yesterday.getDate()
-  const yesterdayMonth = yesterday.getMonth() + 1
-
   const normalDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   const daysLeap = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
@@ -58,10 +54,10 @@ export const validate = (date, setValidated) => {
     validated[0] = days[validated[1] - 1]
   }
 
-  if (parseInt(validated[2]) === currentYear && parseInt(validated[0]) >= currentDay && parseInt(validated[1]) >= currentMonth) {
-    validated[0] = yesterdayDay
-    validated[1] = yesterdayMonth
-    validated[2] = yesterdayYear
+  if (parseInt(validated[2]) === currentYear && parseInt(validated[0]) > currentDay && parseInt(validated[1]) >= currentMonth) {
+    validated[0] = currentDay
+    validated[1] = currentMonth
+    validated[2] = currentYear
   }
 
   setValidated(true)
