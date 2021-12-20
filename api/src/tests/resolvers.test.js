@@ -62,9 +62,29 @@ const shortRangeTest = {
     length: 3
 }
 
+const shortestRangeTest = {
+    id: 'Data for shortest range',
+    query: `
+      query {
+        statistics(
+          start: { day: 18, month: 12, year: 2021 }
+          end: { day: 19, month: 12, year: 2021 })
+        {
+          start
+          end
+          prices {
+            date
+            price
+          }
+        }
+      }
+    `,
+    length: 2
+}
+
 describe('Range tests', () => {
     // array of all test cases
-    const cases = [longRangeTest, midRangeTest, shortRangeTest]
+    const cases = [longRangeTest, midRangeTest, shortRangeTest, shortestRangeTest]
 
     // make the actual schema and resolvers executable
     const schema = makeExecutableSchema({ typeDefs, resolvers })

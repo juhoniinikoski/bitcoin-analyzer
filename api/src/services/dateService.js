@@ -7,13 +7,12 @@ export const unixToDate = (date) => new Date(date)
 
 export const filterTimeStamps = (data) => {
   const dates = data.map(p => [unixToDate(p[0]), p[1]])
-  const filteredByHour = dates.filter(d => (d[0].getUTCHours() === 0))
 
   // group timestamps by dates and pick just one first time
   // if there are multiple timestamps within first hour of the day
   var groups = {}
 
-  filteredByHour.forEach(element => {
+  dates.forEach(element => {
     const day = element[0].getUTCDate()
     const month = element[0].getUTCMonth() + 1
     const year = element[0].getUTCFullYear()

@@ -69,9 +69,19 @@ const Home = () => {
         <h2>{content.subtitle2}</h2>
         <form onSubmit={handleSubmit}>
           <p className='helper-text'>{content.input1}</p>
-          <DateSelector date={startDate} setDate={setStartDate} validated={startValidated} setValidated={setStartValidated} placeholder={content.placeholder}/>
+          <DateSelector
+            date={startDate}
+            setDate={setStartDate}
+            validated={startValidated}
+            setValidated={setStartValidated}
+            placeholder={content.placeholder}/>
           <p className='helper-text'>{content.input2}</p>
-          <DateSelector date={endDate} setDate={setEndDate} validated={endValidated} setValidated={setEndValidated} placeholder={content.placeholder}/>
+          <DateSelector
+            date={endDate}
+            setDate={setEndDate}
+            validated={endValidated}
+            setValidated={setEndValidated}
+            placeholder={content.placeholder}/>
           <button className='submit-button' disabled={!valid} type="submit">
             {valid ? <MdDone size={22} color={colors.primaryDark}/> :
             <MdNotInterested size={22} color={colors.disabled}/>}

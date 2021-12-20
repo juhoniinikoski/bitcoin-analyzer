@@ -1,5 +1,9 @@
 
 export const longestDecline = (prices) => {
+
+  // Searches for subsequent decreasing values.
+  // If the number of decreasing day prices is higher than previous max day lenght,
+  // the algortihm picks new start and end dates for longes decline
   
   let longest = 0
   let length = 0
@@ -34,14 +38,22 @@ export const pricesToObject = (prices) => {
 }
 
 export const highestVolume = (volumes) => {
+
+  // finds the maximum value from array of objects and returns data parsed from it
   const volumeList = volumes.map(v => parseFloat(v[1]))
   const max = Math.max(...volumeList)
   const index = volumeList.indexOf(max)
   const date = volumes[index][0]
+
   return {date, volume: max}
 }
 
 export const mostProfitableRange = (prices) => {
+
+  // For every new minimum value, the algorithm finds a maximum.
+  // After that, the algorithm finds biggest price difference between mins and maxes
+  // and returns data related to those values
+
   var min = [{ id: 0, price: prices[0][1] }]
   var max = [{ id: 0, price: prices[0][1] }]
   var differences = []

@@ -53,8 +53,6 @@ export const typeDefs = gql`
     ): Bitcoin
   }
 `
-const argsStart = { day: 1, month: 12, year: 2019 }
-const argsEnd = { day: 13, month: 12, year: 2019 }
 
 export const resolvers = {
   Query: {
@@ -66,11 +64,14 @@ export const resolvers = {
       try {
         const response = await fetch(`${BASE_URL}${start}&to=${end}`)
         const data = await response.json()
+
         const filteredPrices = filterTimeStamps(data.prices)
+
         const { longest, start: declineStart, end: declineEnd } = longestDecline(filteredPrices)
         const prices = pricesToObject(filteredPrices)
         const volume = highestVolume(filterTimeStamps(data.total_volumes))
         const { rangeStart, rangeEnd, profit } = mostProfitableRange(filteredPrices)
+        
         return {
           start: unixToDate(start * 1000),
           end: unixToDate(end * 1000),

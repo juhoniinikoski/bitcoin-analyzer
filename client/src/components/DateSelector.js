@@ -9,6 +9,10 @@ const DateSelector= ({ date, setDate, validated, setValidated, placeholder }) =>
 
   const format = (raw) => {
     var formatted = raw
+
+    // controls whether input is a new number of backspace
+    // adds/removes slashes if necessary to format date to be cleaner
+
     if (raw.length >= prevLength) {
       if (prevLength === 1 || prevLength === 6) {
         formatted = raw + " / "
@@ -18,13 +22,19 @@ const DateSelector= ({ date, setDate, validated, setValidated, placeholder }) =>
         formatted = raw.substring(0, raw.length - 3)
       }
     }
+
     setPrevLength(formatted.length)
     const parts = formatted.split("/").map(p => p.trim())
+
+    // if the input seems to be right in terms of lenghts of parts,
+    // valdidate()-function checks for incorrect inputs
+    
     if (parts.length === 3 && parts[2].length === 4 && parts[0].length === 2 && parts[1].length === 2) {
       formatted = validate(parts, setValidated)
     } else if (validated === true) {
       setValidated(false)
     }
+    
     return formatted
   }
 
