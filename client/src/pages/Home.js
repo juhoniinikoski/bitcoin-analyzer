@@ -56,9 +56,7 @@ const Home = () => {
     const start = { day: parsedStart[0], month: parsedStart[1], year: parsedStart[2] }
     const end = { day: parsedEnd[0], month: parsedEnd[1], year: parsedEnd[2] }
 
-    navigate(`/${language}/statistics?start=${dateToUnix(start)}&end=${dateToUnix(end)}`, {
-      state: {start: start, end: end}
-    })
+    navigate(`/${language}/statistics?start=${dateToUnix(start)}&end=${dateToUnix(end)}`)
   }
 
 
