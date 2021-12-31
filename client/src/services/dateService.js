@@ -63,3 +63,31 @@ export const validate = (date, setValidated) => {
   setValidated(true)
   return validated.join(" / ")
 }
+
+export const dateToUnix = (date) => {
+  const {year, month, day} = date
+  return parseInt((Date.UTC(year, month - 1, day) / 1000).toFixed(0))
+}
+
+export const checkDates = (start, end) => {
+
+  const today = new Date()
+
+  if (start > end) {
+    return false
+  } else if (start > today.getTime()) {
+    return false
+  } else if (end < 1367107200) {
+    return false
+  }
+  return true
+}
+
+export const unixToDate = (unixDate) => {
+  const date = new Date(unixDate * 1000)
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+
+  return { year: year, month: month, day: day}
+}

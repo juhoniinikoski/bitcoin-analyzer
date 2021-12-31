@@ -1,25 +1,32 @@
 import React from "react"
 import { useQuery } from '@apollo/client'
 import { GET_STATS } from '../utils/quories'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Layout from "../components/layout"
 import { colors}  from '../styles/colors'
 import { textContent } from "../content/textContent"
 import { LineChart } from 'react-chartkick'
 import ClipLoader from "react-spinners/ClipLoader";
 import 'chartkick/chart.js'
+import { checkDates, unixToDate } from "../services/dateService"
 
 const Statistics = () => {
 
-  const location = useLocation()
   const { language } = useParams()
   const content = language === 'en' ? textContent.en : textContent.fi
+
+  const params = new URLSearchParams(window.location.search)
+  const start = params.get('start')
+  const end = params.get('end')
+
+  const valid = checkDates(start, end)
 
   return (
     <Layout language={language}>
       <div>
-        {location.state ? <div>
-          <Stats state={location.state} language={language}/>
+        {valid ? <div>
+          {/* start ja end parametreinä */}
+          <Stats start={unixToDate(start)} end={unixToDate(end)} language={language}/>
         </div>
         :
         <div>
@@ -30,9 +37,7 @@ const Statistics = () => {
   )
 }
 
-const Stats = ({ state, language }) => {
-
-  const {start, end} = state
+const Stats = ({ start, end, language }) => {
 
   const { data, loading } = useQuery(GET_STATS, {
     variables: {start, end},

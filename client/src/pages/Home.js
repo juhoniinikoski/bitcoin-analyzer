@@ -5,6 +5,7 @@ import { textContent } from '../content/textContent'
 import { MdDone, MdNotInterested } from 'react-icons/md'
 import { colors } from '../styles/colors'
 import { useNavigate, useParams } from 'react-router-dom'
+import { dateToUnix } from '../services/dateService'
 
 const Home = () => {
 
@@ -55,7 +56,7 @@ const Home = () => {
     const start = { day: parsedStart[0], month: parsedStart[1], year: parsedStart[2] }
     const end = { day: parsedEnd[0], month: parsedEnd[1], year: parsedEnd[2] }
 
-    navigate(`/${language}/statistics`, {
+    navigate(`/${language}/statistics?start=${dateToUnix(start)}&end=${dateToUnix(end)}`, {
       state: {start: start, end: end}
     })
   }

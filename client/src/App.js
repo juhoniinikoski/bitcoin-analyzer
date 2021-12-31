@@ -14,7 +14,7 @@ const App = () => {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Switch>
-        <Route path="/:language/statistics/" element={<Validator component={<Statistics />} />}/>
+        <Route path="/:language/statistics" element={<Validator component={<Statistics />} />}/>
         <Route path="/:language" element={<Validator component={<Home />}/>} />
         <Route path="" element={<Navigate replace to="/en" />} />
       </Switch>
