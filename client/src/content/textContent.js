@@ -20,7 +20,7 @@ export const textContent = {
     buy: "Bought",
     sell: "Sold",
     negative: "You shouldn't have bought Bitcoin during this date range as the profit would have been negative in any case.",
-    noContent: "No specified dates to inspect. Please return back to home page to select the date range you want to look closer."
+    noContent: "No specified or valid dates to inspect. Please return back to home page to select the date range you want to look closer."
   },
   fi: {
     greeting: "Heippa! 👋",
@@ -43,6 +43,6 @@ export const textContent = {
     buy: "Ostaa",
     sell: "Myydä",
     negative: "Sinun ei olisi kannattanut ostaa Bitcoinia tällä aikavälillä, sillä tuotto olisi ollut joka tapauksessa negatiivista.",
-    noContent: "Tarkasteltavia päiviä ei ole määritelty. Ole hyvä ja palaa takaisin etusivulle valitsemaan aikaväli, jota halua tutkailla."
+    noContent: "Tarkasteltavia päiviä ei ole määritelty tai ne ovat epäkorrekteja. Ole hyvä ja palaa takaisin etusivulle valitsemaan aikaväli, jota halua tutkailla."
   }
 }

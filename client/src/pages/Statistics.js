@@ -25,7 +25,6 @@ const Statistics = () => {
     <Layout language={language}>
       <div>
         {valid ? <div>
-          {/* start ja end parametreinä */}
           <Stats start={unixToDate(start)} end={unixToDate(end)} language={language}/>
         </div>
         :
