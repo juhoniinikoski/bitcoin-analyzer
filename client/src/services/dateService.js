@@ -54,7 +54,7 @@ export const validate = (date, setValidated) => {
     validated[0] = days[validated[1] - 1]
   }
 
-  if (parseInt(validated[2]) === currentYear && parseInt(validated[0]) > currentDay && parseInt(validated[1]) >= currentMonth) {
+  if (parseInt(validated[2]) === currentYear && parseInt(validated[1]) >= currentMonth) {
     validated[0] = currentDay < 10 ? `0${currentDay}` : currentDay
     validated[1] = currentMonth < 10 ? `0${currentMonth}` : currentMonth
     validated[2] = currentYear
