@@ -6,14 +6,7 @@
 <div align="center">
 
   <h1 align="center">Bitcoin Analyzer</h1>
-
-  <p align="center">
-    <a href="http://juhoniinikoski.github.io/bitcoin-analyzer">http://juhoniinikoski.github.io/bitcoin-analyzer</a>
-    <!-- <br />
-    <a href="https://github.com/juhoniinikoski/bitcoin-analyzer/tree/main/client">Client docs</a>
-    ·
-    <a href="https://github.com/juhoniinikoski/bitcoin-analyzer/tree/main/api">API docs</a> -->
-  </p>
+  
 </div>
 
 <!-- ABOUT THE PROJECT -->
